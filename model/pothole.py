@@ -4,7 +4,7 @@ import cvzone
 import math
 
 
-img_path = r"./images/potholeNo.jpg"
+img_path = r"./images/potholeYes.jpg"
 img = cv2.imread(img_path)
 
 
