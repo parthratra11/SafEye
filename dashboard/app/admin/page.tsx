@@ -1,22 +1,75 @@
 "use client";
 
-import { MapPin, ChevronRight, Bell, Search } from "lucide-react";
+import {
+  MapPin,
+  ChevronRight,
+  Bell,
+  Search,
+  Construction,
+  Trash2,
+  Lightbulb,
+} from "lucide-react";
 import { useState } from "react";
 
 export default function DashboardPage() {
   const [searchQuery, setSearchQuery] = useState("");
 
   const reports = [
-    { id: 1, location: "Lajpat Nagar, Delhi-110024", highlighted: false },
-    { id: 2, location: "Timarpur, Delhi-110007", highlighted: true },
-    { id: 3, location: "Vijay Nagar, Delhi-110009", highlighted: false },
-    { id: 4, location: "Kalyan Vihar, Delhi-110009", highlighted: true },
-    { id: 5, location: "Dwarka, Delhi-110075", highlighted: false },
-    { id: 6, location: "Rohini, Delhi-110037", highlighted: true },
+    {
+      id: 1,
+      location: "Lajpat Nagar, Delhi-110024",
+      highlighted: false,
+      type: "pothole",
+      icon: Construction,
+      color: "text-orange-600",
+    },
+    {
+      id: 2,
+      location: "Timarpur, Delhi-110007",
+      highlighted: true,
+      type: "trash",
+      icon: Trash2,
+      color: "text-green-600",
+    },
+    {
+      id: 3,
+      location: "Vijay Nagar, Delhi-110009",
+      highlighted: false,
+      type: "streetlight",
+      icon: Lightbulb,
+      color: "text-yellow-600",
+    },
+    {
+      id: 4,
+      location: "Kalyan Vihar, Delhi-110009",
+      highlighted: true,
+      type: "pothole",
+      icon: Construction,
+      color: "text-orange-600",
+    },
+    {
+      id: 5,
+      location: "Dwarka, Delhi-110075",
+      highlighted: false,
+      type: "trash",
+      icon: Trash2,
+      color: "text-green-600",
+    },
+    {
+      id: 6,
+      location: "Rohini, Delhi-110037",
+      highlighted: true,
+      type: "streetlight",
+      icon: Lightbulb,
+      color: "text-yellow-600",
+    },
     {
       id: 7,
       location: "Central Secretariat, Delhi-110069",
       highlighted: false,
+      type: "pothole",
+      icon: Construction,
+      color: "text-orange-600",
     },
   ];
 
@@ -26,6 +79,19 @@ export default function DashboardPage() {
     invalid: 12,
     resolved: 89,
     pending: 46,
+  };
+
+  const getTypeLabel = (type) => {
+    switch (type) {
+      case "pothole":
+        return "Pothole";
+      case "trash":
+        return "Trash";
+      case "streetlight":
+        return "Street Light";
+      default:
+        return "Unknown";
+    }
   };
 
   return (
@@ -99,25 +165,40 @@ export default function DashboardPage() {
               </div>
 
               <div className="space-y-2">
-                {reports.map((report) => (
-                  <div
-                    key={report.id}
-                    className={`${
-                      report.highlighted ? "bg-green-100" : "bg-white"
-                    } rounded-xl p-2 flex items-center justify-between shadow-sm hover:shadow-md transition-shadow`}
-                  >
-                    <span className="text-gray-800 font-medium">
-                      {report.location}
-                    </span>
-                    <div className="flex items-center space-x-3">
-                      <MapPin className="w-5 h-5 text-red-600" />
-                      <button className="flex items-center space-x-1 text-gray-700 hover:text-gray-900">
-                        <span>Details</span>
-                        <ChevronRight className="w-5 h-5" />
-                      </button>
+                {reports.map((report) => {
+                  const IconComponent = report.icon;
+                  return (
+                    <div
+                      key={report.id}
+                      className={`${
+                        report.highlighted ? "bg-green-100" : "bg-white"
+                      } rounded-xl p-2 flex items-center justify-between shadow-sm hover:shadow-md transition-shadow`}
+                    >
+                      <div className="flex items-center space-x-3">
+                        <div className="flex items-center space-x-2">
+                          <IconComponent
+                            className={`w-4 h-4 ${report.color}`}
+                          />
+                          <span
+                            className={`text-xs font-medium ${report.color}`}
+                          >
+                            {getTypeLabel(report.type)}
+                          </span>
+                        </div>
+                        <span className="text-gray-800 font-medium">
+                          {report.location}
+                        </span>
+                      </div>
+                      <div className="flex items-center space-x-3">
+                        <MapPin className="w-5 h-5 text-red-600" />
+                        <button className="flex items-center space-x-1 text-gray-700 hover:text-gray-900">
+                          <span>Details</span>
+                          <ChevronRight className="w-5 h-5" />
+                        </button>
+                      </div>
                     </div>
-                  </div>
-                ))}
+                  );
+                })}
               </div>
             </div>
           </div>
