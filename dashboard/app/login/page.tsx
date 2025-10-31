@@ -33,7 +33,7 @@ export default function LoginPage() {
                 alt="Government of India Emblem"
                 width={60}
                 height={60}
-                className="rounded-full mb-2"
+                className=" mb-2"
               />
             </a>
           </Link>
